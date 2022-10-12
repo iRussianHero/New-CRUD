@@ -1,0 +1,39 @@
+﻿@model Post
+@{
+    ViewData["Title"] = "AddPost";
+}
+
+<h1>AddPost</h1>
+
+
+<form asp-action="Add" asp-controller="Post" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+        <input name="ImageUrl" class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" rows="3" class="form-control"></textarea>
+        <span class="text-danger" asp-validation-for="Content"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <input type="submit" class="form-control btn btn-primary" value="Add" />
+            </div>
+            <div class="col-6">
+                <a asp-action="Index" asp-controller="Post" class="form-control btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

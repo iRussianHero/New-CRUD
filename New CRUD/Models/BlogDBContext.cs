@@ -2,9 +2,9 @@
 
 namespace New_CRUD.Models
 {
-    public class BlogDBContext : DbContext
+    public class BlogDbContext : DbContext
     {
-        public BlogDBContext(DbContextOptions options) : base(options)
+        public BlogDbContext(DbContextOptions options) : base(options)
         {
         }
 
