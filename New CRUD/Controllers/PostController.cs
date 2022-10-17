@@ -25,10 +25,10 @@ namespace DBCrud.Controllers
             return View(blogDbContext.Posts.ToList());
         }
 
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            DeleteById(id);
-            return View(blogDbContext.Posts.ToList());
+            await DeleteById(id);
+            return View("Index", blogDbContext.Posts.ToList());
         }
 
         [HttpPost]
@@ -51,16 +51,16 @@ namespace DBCrud.Controllers
 
             //return View(post);
         }
-        public void DeleteById(string id)
+        public async Task<IActionResult> DeleteById(string id)
         {
             Post post = blogDbContext.Posts
                 .Where(o => o.Id.ToString() == id)
                 .FirstOrDefault();
 
             blogDbContext.Posts.Remove(post);
-            blogDbContext.SaveChangesAsync();
+            await blogDbContext.SaveChangesAsync();
 
-            //return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }
