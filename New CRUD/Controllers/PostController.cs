@@ -19,6 +19,12 @@ namespace DBCrud.Controllers
             return View();
         }
 
+        public IActionResult Edit(string id)
+        {
+            Post post = FindById(id);
+            return View(post);
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -51,11 +57,17 @@ namespace DBCrud.Controllers
 
             //return View(post);
         }
-        public async Task<IActionResult> DeleteById(string id)
+
+        public Post FindById(string id)
         {
-            Post post = blogDbContext.Posts
+            Post post = new Post();
+            return post = blogDbContext.Posts
                 .Where(o => o.Id.ToString() == id)
                 .FirstOrDefault();
+        }
+        public async Task<IActionResult> DeleteById(string id)
+        {
+            Post post = FindById(id);
 
             blogDbContext.Posts.Remove(post);
             await blogDbContext.SaveChangesAsync();
