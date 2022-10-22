@@ -19,6 +19,18 @@ namespace DBCrud.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Update(Post post, string id)
+        {
+            Post oldPost = FindById(id);
+            oldPost.Title = post.Title;
+            oldPost.ImageUrl = post.ImageUrl;
+            oldPost.Content = post.Content;
+            blogDbContext.Update(oldPost);
+            await blogDbContext.SaveChangesAsync();
+            TempData["Status"] = "Post was updated";
+            return RedirectToAction("Index", blogDbContext.Posts.ToList());
+        }
+
         public IActionResult Edit(string id)
         {
             Post post = FindById(id);
@@ -65,7 +77,12 @@ namespace DBCrud.Controllers
                 .Where(o => o.Id.ToString() == id)
                 .FirstOrDefault();
         }
-        public async Task<IActionResult> DeleteById(string id)
+
+        //public async Task<IActionResult> Edit()
+        //{
+
+        //}
+            public async Task<IActionResult> DeleteById(string id)
         {
             Post post = FindById(id);
 
